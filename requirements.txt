@@ -1,0 +1,4 @@
+streamlit>=1.53,<2
+torch>=2.6,<3
+transformers>=4.44,<6
+captum>=0.8,<1

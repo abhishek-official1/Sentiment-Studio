@@ -1,0 +1,7 @@
+{
+  "seed": 13,
+  "temperature": 1.7926,
+  "temperature_precision": "rounded to 4 decimal places",
+  "source": "Saved output of notebook cell 15; fitted on IMDb validation only",
+  "max_length": 256
+}
