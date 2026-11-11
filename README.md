@@ -76,3 +76,7 @@ The app reads the first **256 tokens**, including special tokens. It normalizes 
 Most tests exercise text handling and the Streamlit flow. The integration test loads the real seed 13 checkpoint and runs an explanation; it needs the optional model libraries and checkpoint in place. A successful UI test alone does not establish classifier accuracy.
 
 The source notebook and app are here to inspect and run locally. Model files, generated results, and dataset copies belong in your own working directory, outside Git history.
+
+## Contributing and license
+
+The [contribution guide](CONTRIBUTING.md) covers tests that run without a checkpoint. Project code and documentation are under the [MIT License](LICENSE). This does not license IMDb data, the BERT base model, or any checkpoint you train.

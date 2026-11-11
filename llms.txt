@@ -1,0 +1,14 @@
+# Sentiment Studio
+> Local BERT sentiment app and source-only research notebook.
+
+## Documentation
+- [README](README.md): Purpose, setup, use, and limitations
+- [Contributing](CONTRIBUTING.md): Development checks and data boundaries
+- [Changelog](CHANGELOG.md): Source release history
+
+## Research source
+- [Source notebook](<Explainable_Sentiment_Analysis_BERT_Research (1) (2).ipynb>): Analysis code without saved results
+
+## Optional
+- [Security](SECURITY.md): Private vulnerability reporting
+- [License](LICENSE): MIT license for project code and documentation

@@ -62,6 +62,7 @@ def test_truncation_inside_word_does_not_highlight_or_duplicate_unseen_suffix():
 def test_calibration_identifies_rounded_notebook_source():
     calibration = json.loads(Path('sentiment/calibration.json').read_text())
     assert calibration['seed'] == 13
+    # Source: rounded temperature recorded by the seed-13 research notebook.
     assert calibration['temperature'] == pytest.approx(1.7926)
     assert calibration['max_length'] == 256
     assert calibration['temperature_precision'] == 'rounded to 4 decimal places'

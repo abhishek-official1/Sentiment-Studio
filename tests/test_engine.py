@@ -12,10 +12,13 @@ def test_missing_checkpoint_has_actionable_error():
 
 @pytest.mark.integration
 def test_real_checkpoint_prediction_and_explanation():
+    checkpoint = Path('outputs/checkpoints/bert_seed_13')
+    if not (checkpoint / 'model.safetensors').is_file():
+        pytest.skip('Integration checkpoint is not included in the repository')
     pytest.importorskip('torch')
     pytest.importorskip('transformers')
     pytest.importorskip('captum')
-    engine = SentimentEngine(Path('outputs/checkpoints/bert_seed_13'))
+    engine = SentimentEngine(checkpoint)
     positive = engine.predict('A wonderful film with beautiful acting. I loved every minute.')
     negative = engine.predict('An awful, boring movie. The acting was terrible and I hated it.')
     assert positive['label'] == 'positive'
