@@ -1,6 +1,16 @@
-# Sentiment Studio
+# 🎬 Sentiment Studio
 
-**A movie review is more than a thumbs up or down.** This project pairs a BERT sentiment classifier with word level attribution, so you can inspect which parts of a review supported its prediction and which pulled against it.
+[![MIT license](https://img.shields.io/badge/license-MIT-6c8058.svg)](LICENSE)
+![Python 3.11–3.12](https://img.shields.io/badge/Python-3.11%20%7C%203.12-4c6a89.svg)
+[![Checks](https://github.com/abhishek-official1/Sentiment-Studio/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/abhishek-official1/Sentiment-Studio/actions/workflows/ci.yml)
+
+## 💬 What is Sentiment Studio?
+
+Sentiment is the feeling expressed in a piece of writing. Sentiment Studio reads an English movie review and estimates whether it is **positive** or **negative**. It also marks the words that pushed its prediction in either direction. A mixed review can have praise and criticism in the same sentence; seeing both makes the model's answer easier to examine.
+
+This research app explores how a classifier processes movie reviews. Its model is based on [**BERT**](https://aclanthology.org/N19-1423/) (Bidirectional Encoder Representations from Transformers), a language model adapted here to classify reviews.
+
+> **What the highlights mean:** They describe this model's response to the text, not the reviewer's private feelings.
 
 `IMDb reviews` &nbsp;→&nbsp; `BERT prediction` &nbsp;→&nbsp; `word contributions`
 
@@ -8,7 +18,19 @@
 
 ---
 
-## The experience
+## 📚 Why these reviews?
+
+The main dataset is the [IMDb Large Movie Review Dataset](https://ai.stanford.edu/~amaas/data/sentiment/), a collection of **25,000 labeled training reviews and 25,000 labeled test reviews** from the Internet Movie Database. Each labeled review is strongly positive or strongly negative. This makes it useful for a clear two-class experiment, while leaving mixed or subtle opinions outside the original labels. The notebook keeps a validation split from the training portion and reserves the official test portion for final evaluation.
+
+The notebook also checks its frozen IMDb-trained models on the labeled validation split of [SST-2](https://huggingface.co/datasets/stanfordnlp/sst2), which contains shorter movie-review sentences. That check asks whether the same model behaves differently on shorter text; it is not a claim that it works across unrelated subjects or languages. Dataset copies are downloaded when the notebook runs and are not included here.
+
+## 🔎 What comes out of the project?
+
+- **For one review:** a positive or negative label, a confidence estimate, and optional word highlights showing support and opposition to that label.
+- **For the research run:** a comparison of BERT with word-frequency baselines, probability calibration, and tests of how the word rankings respond to changes in the input and model. Running the notebook writes tables and figures to `outputs/`.
+
+<a id="the-experience"></a>
+## 🖥️ The experience
 
 Paste an English movie review, or choose one of the three built in examples. The app returns a positive or negative prediction and a calibrated confidence estimate. Ask for an explanation to see the review marked up: green words support the chosen class; terracotta words oppose it. Longer reviews keep their unprocessed tail visible, so the reading window is clear.
 
@@ -23,7 +45,8 @@ The interface runs in Streamlit. It uses local model files and sends no review t
 | `tests/` | Text, UI, and optional real model checks |
 | Research notebook | Three seed training and evaluation pipeline |
 
-## Run the app
+<a id="run-the-app"></a>
+## 🚀 Run the app
 
 Use Python 3.11 or 3.12. From this folder, create an environment and install the app dependencies:
 
@@ -35,7 +58,7 @@ python -m venv .venv
 
 The app opens at the local address Streamlit prints, usually `http://localhost:8501`. CPU inference works; a CUDA device is used when available. The first prediction loads the model. Explanations take longer, especially on CPU.
 
-### The local checkpoint
+### 📦 The local checkpoint
 
 Model weights are deliberately absent from this repository. To use the app, place the **complete seed 13 checkpoint** at:
 
@@ -52,13 +75,15 @@ The [research notebook](<Explainable_Sentiment_Analysis_BERT_Research%20(1)%20(2
 
 `outputs/` is ignored by Git because it contains generated tables, figures, and model weights. The three existing weight files are about 438 MB **each**. Browser profiles, virtual environments, caches, and local secrets are also excluded.
 
-## The research
+<a id="the-research"></a>
+## 🧪 The research
 
 The notebook uses IMDb reviews to compare fine tuned BERT with lexical baselines, calibrates predicted probabilities on validation data, and checks explanation behavior with matched budget perturbations. It records three training seeds (`13`, `42`, `123`); the app intentionally uses seed `13`, the notebook's chosen explanation model. Notebook execution outputs have been cleared for a clean source release. Running it will regenerate results locally.
 
 The app reads the first **256 tokens**, including special tokens. It normalizes HTML entities, line breaks, and whitespace as the notebook does. Confidence uses temperature `1.7926`, recovered from a rounded notebook result; the original full precision value was not exported. Word colors are Integrated Gradients contributions to the predicted class **logit**, using attended PAD content tokens as a reference.
 
-### Read the result carefully
+<a id="read-the-result-carefully"></a>
+### ⚠️ Read the result carefully
 
 - The classifier always picks positive or negative. A mixed review still gets one label.
 - Confidence is a model estimate. It does not guarantee that the label is right.
@@ -66,7 +91,7 @@ The app reads the first **256 tokens**, including special tokens. It normalizes 
 - The app checks numerical completeness of each explanation and warns when its target is not reached. Numerical convergence does not prove an explanation is faithful in everyday language.
 - IMDb movie reviews are a narrow domain; these results do not establish performance on other topics or languages.
 
-## Check the code
+## ✅ Check the code
 
 ```powershell
 .\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
@@ -77,6 +102,6 @@ Most tests exercise text handling and the Streamlit flow. The integration test l
 
 The source notebook and app are here to inspect and run locally. Model files, generated results, and dataset copies belong in your own working directory, outside Git history.
 
-## Contributing and license
+## 🤝 Contributing and license
 
 The [contribution guide](CONTRIBUTING.md) covers tests that run without a checkpoint. Project code and documentation are under the [MIT License](LICENSE). This does not license IMDb data, the BERT base model, or any checkpoint you train.
